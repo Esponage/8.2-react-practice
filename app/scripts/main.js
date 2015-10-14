@@ -17,6 +17,8 @@
 //
 // ReactDOM.render(rootElement, document.getElementById('react-app'))
 
+var newContact = {name: '', email: '', description: ''};
+
 var contacts = [
   {key: 1, name: "James K Nelson", email: "james@jamesknelson.com", description: "Front-end Unicorn"},
   {key: 2, name: "Jim", email: "jim@example.com"},
@@ -35,7 +37,7 @@ var ContactItem = React.createClass({
       <li>
         <h2>{this.props.name}</h2>
         <a href={'mailto:' + this.props.email}>{this.props.email}></a>
-        <p>{this.props.description}</p>
+        <div>{this.props.description}</div>
       </li>
     )
   }
@@ -49,18 +51,20 @@ var contactItemElements = contacts
     return <ContactItem {...contact} />;
   });
 
-  var rootElement = (
+  var RootElement = React.createClass({
+    render() {
+      return(
     <div>
       <h1>Contacts</h1>
       <ul>
         {contactItemElements}
       </ul>
-        {ContactForm}
-    </div>
+        <ContactForm contact={this.props.contact}></ContactForm>
+     </div>
+    )
+  }
+})
 
-  );
-
-  ReactDOM.render(rootElement, document.getElementById('react-app'));
 
 
 // HERE BEGINS EXERCISE 3 OF PART 1
@@ -81,3 +85,5 @@ var ContactForm = React.createClass({
     )
   }
 });
+
+ReactDOM.render(<RootElement contact={newContact}/>, document.getElementById('react-app'));
