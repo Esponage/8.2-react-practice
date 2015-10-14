@@ -41,7 +41,7 @@ var ContactItem = React.createClass({
   }
 });
 
-var listElements = contacts
+var contactItemElements = contacts
   .filter(function(contact) {
      return contact.email;
    })
@@ -53,13 +53,31 @@ var listElements = contacts
     <div>
       <h1>Contacts</h1>
       <ul>
-        {listElements}
+        {contactItemElements}
       </ul>
+        {ContactForm}
     </div>
+
   );
 
-  var ContactForm = React.createClass({
-    propTypes: React.PropTypes.object.isRequired
-  })
+  ReactDOM.render(rootElement, document.getElementById('react-app'));
 
-  ReactDOM.render(rootElement, document.getElementById('react-app'))
+
+// HERE BEGINS EXERCISE 3 OF PART 1
+
+var ContactForm = React.createClass({
+  propTypes: {
+    contact: React.PropTypes.object.isRequired
+},
+
+  render(){
+    return (
+      <form>
+        <input type="text" placeholder="Name (required)" value={this.props.contact.name} />
+          <input type="email" placeholder="Email" value={this.props.contact.email} />
+            <textarea placeholder="Description" value={this.props.contact.description} />
+            <button type="submit">Add Contact</button>
+      </form>
+    )
+  }
+});
